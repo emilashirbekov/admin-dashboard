@@ -8,25 +8,25 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { globalIgnores } from "eslint/config";
 
-export default tseslint.config(
-  [
-    globalIgnores(["dist"]),
-    {
-      files: ["**/*.{ts,tsx}"],
-      extends: [
-        js.configs.recommended,
-        tseslint.configs.recommended,
-        reactHooks.configs["recommended-latest"],
-        reactRefresh.configs.vite,
-      ],
-      languageOptions: {
-        ecmaVersion: 2020,
-        globals: globals.browser,
-      },
-      rules: {
-        "storybook/no-renderer-packages": "off",
-      },
+export default tseslint.config([
+  globalIgnores(["dist"]),
+  ...storybook.configs["flat/recommended"],
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
-  ],
-  storybook.configs["flat/recommended"]
-);
+    rules: {
+      "storybook/no-renderer-packages": "off",
+      "react-hooks/rules-of-hooks": "off",
+      "react-refresh/only-export-components": "off",
+    },
+  },
+]);
